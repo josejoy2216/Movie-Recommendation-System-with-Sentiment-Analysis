@@ -1,0 +1,64 @@
+How are you feeling today?
+On a scale of 1-10, how would you rate your current level of stress?
+Are you feeling happy, sad, or neutral at the moment?
+Are you feeling energized or tired?
+Are you feeling content or discontent with your current situation?
+Are you feeling optimistic or pessimistic about the future?
+Are you feeling calm or anxious?
+Are you feeling fulfilled or unfulfilled?
+
+mood = input("How are you feeling today? (happy, sad, stressed, relaxed, etc.)")
+
+if mood == "happy":
+  print("We recommend watching a comedy, like 'Bridesmaids' or 'The Hangover'.")
+elif mood == "sad":
+  print("We recommend watching a drama, like 'The Pursuit of Happyness' or 'A Walk to Remember'.")
+elif mood == "stressed":
+  print("We recommend watching a thriller, like 'Inception' or 'The Silence of the Lambs'.")
+elif mood == "relaxed":
+  print("We recommend watching a romantic movie, like 'The Notebook' or 'Titanic'.")
+else:
+  print("We recommend watching a movie that you've been meaning to see.")
+
+
+-----------------------------------------------------------------------------------------------
+Code:
+import pandas as pd
+
+# load movie dataset
+movies = pd.read_csv("movies.csv")
+
+# ask questions to gather information about user's mood
+mood = input("How are you feeling today? (happy, sad, stressed, relaxed, etc.)")
+stress_level = int(input("On a scale of 1-10, how would you rate your current level of stress?"))
+energy = input("Are you feeling energized or tired?")
+content = input("Are you feeling content or discontent with your current situation?")
+
+# create an empty list to store recommended movies
+recommended_movies = []
+
+# filter dataset based on user's mood and other factors
+if mood == "happy":
+    recommended_movies = movies[(movies['genres'].str.contains("Comedy")) & (movies['rating']>7) & (movies['year']>2010)]
+elif mood == "sad":
+    recommended_movies = movies[(movies['genres'].str.contains("Drama")) & (movies['rating']>7) & (movies['year']>2010)]
+elif mood == "stressed":
+    recommended_movies = movies[(movies['genres'].str.contains("Thriller")) & (movies['rating']>7) & (movies['year']>2010)]
+elif mood == "relaxed":
+    recommended_movies = movies[(movies['genres'].str.contains("Romance")) & (movies['rating']>7) & (movies['year']>2010)]
+
+# if no movies found or dataset is empty
+if recommended_movies.empty:
+    print("Sorry, we couldn't find any movie for your mood.")
+else:
+    # print the recommended movies
+    print("Based on your mood, we recommend the following movies:")
+    for i in range(len(recommended_movies)):
+        print(recommended_movies.iloc[i]['title'])
+
+----------------------------------------------------------------------------------------
+This code uses the pandas library to read a movie dataset from a CSV file, then it prompts the user to input their mood and other related information. Next, it uses an if-elif statement to filter the movies dataset based on the user's mood and other factors, such as year and rating. Finally, it prints the recommended movies, if any.
+You can replace the "movies.csv" with your dataset and also you may want to add more conditions to filter the dataset based on your requirement.
+It's important to have good quality of data in dataset to get the accurate results.
+---------------------------------------------------------------------------------------------
+https://github.com/topics/movie-recommendation-system
